@@ -8,7 +8,8 @@ public class Timed_Door_Script : Base_Class
     // Start is called before the first frame update
     public override void Activate() 
     {
-        Vector3 newpos = m_Door.transform.position - Vector3.up;
+        Debug.Log("HERE!!!!");
+        Vector3 newpos = m_Door.transform.position - 1.2f * Vector3.up;
         m_Door.transform.position = newpos;
     }
 

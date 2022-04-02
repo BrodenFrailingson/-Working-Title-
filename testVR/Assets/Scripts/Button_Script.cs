@@ -9,7 +9,8 @@ public class Button_Script : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        foreach (Base_Class b in m_AttachedObjects) 
+        Debug.Log("In Collision");
+        foreach (Base_Class b in m_AttachedObjects)
         {
             b.Activate();
         }
