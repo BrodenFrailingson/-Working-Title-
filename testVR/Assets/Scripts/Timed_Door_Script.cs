@@ -4,18 +4,54 @@ using UnityEngine;
 
 public class Timed_Door_Script : Base_Class
 {
-    [SerializeField] GameObject m_Door;
+    [SerializeField] private GameObject m_Door;
+    [SerializeField] private float m_AnimationStep;
+    [SerializeField] private Animator m_Animator;
+    private float animtime = 0.0f;
+    private bool opening = false;
+    private bool closing = false;
+
     // Start is called before the first frame update
     public override void Activate() 
     {
-        Debug.Log("HERE!!!!");
-        Vector3 newpos = m_Door.transform.position - 1.2f * Vector3.up;
-        m_Door.transform.position = newpos;
+        opening = true;
+        closing = false;
+    }
+
+    private void Update()
+    {
+        if (opening)
+        {
+            if (animtime < 1.0f)
+            {
+                animtime += m_AnimationStep;
+                m_Animator.SetFloat("Time", animtime);
+            }
+            else
+            {
+                animtime = 1.0f;
+                opening = false;
+            }
+        }
+        else if (closing) 
+        {
+            if (animtime > 0.0f)
+            {
+                animtime -= m_AnimationStep;
+                m_Animator.SetFloat("Time", animtime);
+            }
+            else
+            {
+                animtime = 0.0f;
+                closing = false;
+            }
+        }
+
     }
 
     public override void Deactivate()
     {
-        Vector3 newpos = m_Door.transform.position + Vector3.up;
-        m_Door.transform.position = newpos;
+        opening = false;
+        closing = true;
     }
 }
